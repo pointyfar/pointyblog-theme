@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html{{ with .Site.LanguageCode }} lang="{{ . }}"{{ end }}>
+
+<head>
+  
+  <link rel="stylesheet" href="{{ "/css/style.css" | relURL }}" />
+  <link rel="stylesheet" href="{{ "/bundle.css" | relURL }}" />
+  <script src="{{ "/bundle.js" | relURL }}" async></script>
+  <script src="{{ "/mdc.js" | relURL }}" async></script>
+  
+  
+  
+  {{ .Hugo.Generator }}
+  
+</head>
+
+<body>

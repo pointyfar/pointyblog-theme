@@ -1,0 +1,13 @@
+{{ define "main" }}
+
+  {{ range first 1 ( where .Site.RegularPages.ByPublishDate.Reverse ".Type" "post") }}
+  <!-- Display LATEST published blog post  -->
+    {{ .Title }}
+    {{ .Content }}
+    <button class="foo-button mdc-button">
+    Button
+  </button>
+  {{ end }}
+  
+  
+{{ end }}

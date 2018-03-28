@@ -1,0 +1,23 @@
+{{ $page := .Page }}
+
+{{ $.Scratch.Set "alt" ""}}
+{{ with .Get "alt" }}
+{{ $.Scratch.Set "alt" . }}
+{{ end }}
+
+{{ with .Get "resource" }}
+
+{{ $img := $page.Resources.GetMatch . }}
+z{{ $img.RelPermalink }}z
+<figure> 
+    <img src="{{ $img.RelPermalink }}" />
+    <figcaption>{{ $.Scratch.Get "alt" }}</figcaption>
+</figure>
+
+{{ end }}
+
+{{ with .Get "src" }}
+{{ . }}
+{{ end }}
+
+
