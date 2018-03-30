@@ -1,13 +1,35 @@
 {{ define "main" }}
-
-  {{ range first 1 ( where .Site.RegularPages.ByPublishDate.Reverse ".Type" "post") }}
-  <!-- Display LATEST published blog post  -->
-    {{ .Title }}
-    {{ .Content }}
-    <button class="foo-button mdc-button">
-    Button
-  </button>
-  {{ end }}
-  
-  
+  <div class="mdc-layout-grid__inner">
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-8">
+      <div class="px-content">
+        
+        <div class="mdc-card px-card px-padding">
+          {{ range first 1 ( where .Site.RegularPages.ByPublishDate.Reverse ".Type" "post") }}
+          
+          <div class="mdc-typography--headline">
+            {{ .Title }}
+          </div>
+          <article>
+            {{ .Content }}
+          </article>
+          <div class="mdc-card__actions">
+            <div class="mdc-card__action-buttons">
+              <button class="mdc-button mdc-card__action mdc-card__action--button">Action 1</button>
+              <button class="mdc-button mdc-card__action mdc-card__action--button">Action 2</button>
+            </div>
+            <div class="mdc-card__action-icons">
+              <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Share">share</i>
+              <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
+            </div>
+          </div>
+          
+          {{ end }}
+        </div>
+        
+      </div>
+    </div>
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--span-4 px-sidebar">
+      {{ partial "nav/sidebar.html" . }}
+    </div>
+  </div>
 {{ end }}

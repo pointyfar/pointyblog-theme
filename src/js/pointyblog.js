@@ -1,2 +1,22 @@
 import {MDCRipple} from '@material/ripple';
-const ripple = new MDCRipple(document.querySelector('.foo-button'));
+import {MDCToolbar, MDCToolbarFoundation} from '@material/toolbar';
+
+
+
+const toolbar = new MDCToolbar(document.querySelector('.mdc-toolbar'));
+
+
+
+toolbar.listen('MDCToolbar:change', function(evt) {
+var flexibleExpansionRatio = evt.detail.flexibleExpansionRatio;
+
+});
+      
+
+
+
+
+
+
+
+

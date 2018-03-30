@@ -1,0 +1,34 @@
+{{ $currentPage := . }}
+
+<header class="mdc-toolbar mdc-toolbar--fixed mdc-toolbar--waterfall mdc-toolbar--flexible mdc-toolbar--flexible-default-behavior">
+  <div class="mdc-toolbar__row px-toolbar"  >
+    
+    <section class="mdc-toolbar__section mdc-toolbar__section--shrink-to-fit mdc-toolbar__section--align-start" >
+      <h1 class="mdc-toolbar__title" style="padding-bottom:1px;">
+        <div>
+        Title
+      </div>
+      </h1>
+    </section>
+    
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+        <nav class="mdc-tab-bar">
+          {{ range .Site.Menus.main }}
+            <a class="mdc-tab {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} mdc-tab--active{{end}} mdc-theme--text-primary-on-primary" href="{{ .URL }}">
+              {{ .Name }}
+              <span class="mdc-tab__indicator"></span>
+            </a>
+          {{ end}}
+        </nav>
+  </section>
+    
+  </div>
+</header>
+
+
+
+
+
+
+
+

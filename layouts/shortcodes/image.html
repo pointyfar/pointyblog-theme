@@ -8,12 +8,13 @@
 {{ with .Get "resource" }}
 
 {{ $img := $page.Resources.GetMatch . }}
-z{{ $img.RelPermalink }}z
+
+<div style="max-width:200px; max-height: 200px; border: 1px solid red">
 <figure> 
-    <img src="{{ $img.RelPermalink }}" />
+    <img src="{{ $img.RelPermalink }}" style="width:100%"/>
     <figcaption>{{ $.Scratch.Get "alt" }}</figcaption>
 </figure>
-
+</div>
 {{ end }}
 
 {{ with .Get "src" }}

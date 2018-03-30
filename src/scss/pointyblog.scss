@@ -1,6 +1,106 @@
-@import "@material/button/mdc-button";
+$mdc-theme-primary: #246A74; //009688
+$mdc-theme-secondary: #C07B44; // #ffab40;
+$mdc-theme-background: #fff; 
 
-.foo-button {
-  @include mdc-button-ink-color(red);
-  @include mdc-states(red);
+@import "../../node_modules/material-components-web/material-components-web";
+
+@import "@material/button/mdc-button";
+@import "@material/card/mdc-card";
+@import "@material/drawer/mdc-drawer";
+@import "@material/theme/mdc-theme";
+@import "@material/typography/mdc-typography";
+
+
+html {
+   min-height: 100vh;
 }
+
+body {
+  font-size: 100%;
+}
+
+.px-body {
+//  border: 5px solid blue;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  color: rgba(0,0,0,.87);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+.px-main-wrapper {
+//  border: 5px dashed orange;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.px-main {
+//  border: 5px solid green;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.px-content {
+//  border: 5px solid pink;
+}
+
+.px-toolbar {
+  // background: rgba($mdc-theme-primary, 0.4)
+}
+
+ .mdc-toolbar--flexible-space-minimized {
+    h1.mdc-toolbar__title {
+      margin-top: 8px;
+      align-self: center;
+    }
+    
+    nav.mdc-tab-bar {
+      align-self: center;
+    }
+ }
+
+.px-toolbar::after {
+  background: url('/images/stock/beach.jpg'); 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.px-sidebar {
+
+}
+
+.px-padding {
+  padding: 1rem;
+}
+
+.px-card {
+  margin-bottom: 1rem;
+}
+
+.px-card-media {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.px-card-media-title {
+  padding: 8px 16px;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+  color: white;
+}
+
+.px-border {
+  border: 1px solid rgba(0,0,0,0.1)
+}
+
+.mdc-layout-grid__cell {
+//  border: 1px solid red;
+}
+ 

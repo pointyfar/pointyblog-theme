@@ -2,11 +2,11 @@
 <html{{ with .Site.LanguageCode }} lang="{{ . }}"{{ end }}>
 
 <head>
-  
-  <link rel="stylesheet" href="{{ "/css/style.css" | relURL }}" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+
+  <link href="{{"/vendor/fontawesome/css/fontawesome-all.css" | relURL }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ "/bundle.css" | relURL }}" />
   <script src="{{ "/bundle.js" | relURL }}" async></script>
-  <script src="{{ "/mdc.js" | relURL }}" async></script>
   
   
   
@@ -14,4 +14,4 @@
   
 </head>
 
-<body>
+<body class="mdc-typography mdc-typography--body1 px-body" id="body">

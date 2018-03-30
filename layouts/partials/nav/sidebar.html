@@ -1,0 +1,137 @@
+{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+
+{{ with .Site.GetPage "page" "about" }}
+
+{{ $.Scratch.Set "imgList" (slice ) }}
+{{ $.Scratch.Set "imgNames" (slice ) }}
+
+
+{{ if gt ( len (.Resources.ByType "image")) 0  | or (isset .Params "image") }}
+  {{ if gt ( len (.Resources.ByType "image")) 0 }}
+    {{ range (.Resources.ByType "image")  }}
+      {{ $.Scratch.Add "imgList" .RelPermalink }}
+      {{ $.Scratch.Add "imgNames" .Name }}
+    {{ end }}
+  {{ end }}
+  {{ if isset .Params "image" }}
+    {{ if eq ( printf "%T" .Params.image ) "string" }}
+      {{ $.Scratch.Add "imgList" .Params.image }}
+      {{ $.Scratch.Add "imgNames" .Params.image }}
+    {{ else if eq ( printf "%T" .Params.image ) "[]interface {}" }}
+      {{ range .Params.image }}
+        {{ $.Scratch.Add "imgList" .src }}
+        {{ $.Scratch.Add "imgNames" .title }}
+      {{ end }}
+    {{ else if eq ( printf "%T" .Params.image ) "[]string" }}
+      {{ range .Params.image }}
+        {{ $.Scratch.Add "imgList" . }}
+        {{ $.Scratch.Add "imgNames" . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+
+
+<div class="mdc-layout-grid__inner">
+  <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-12-desktop ">
+
+<div class="mdc-card px-card">
+  <div class="mdc-card__media mdc-card__media--square" {{ range first 1 ( $.Scratch.Get "imgList") }}style="background: url('{{. |relURL}}') no-repeat center; background-size: cover;"{{end}}>
+    
+    <div class="mdc-card__media-content px-card-media">
+      <div class="mdc-typography--subheading2 px-card-media-title">
+        {{ .Title }}
+        
+      </div>
+    </div>
+  </div>
+  <div class="px-padding">
+    {{ .Summary }}
+  </div>
+  <div class="mdc-card__actions">
+    <div class="mdc-card__action-buttons">
+      <button class="mdc-button mdc-card__action mdc-card__action--button">Read More</button>
+    </div>
+
+  </div>
+</div>
+
+
+{{ end }}
+</div>
+
+<div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4 mdc-layout-grid__cell--span-12-desktop ">
+  <div class="mdc-layout-grid__inner">
+
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 ">
+
+    <div class="mdc-card mdc-list-group px-card">
+      {{ $tags := $.Site.Taxonomies.tags.ByCount }}
+      
+      {{ $v2 := where $tags "Term" "not in" (slice "tags" "rss") }}
+      
+        <h4 class="mdc-list-group__subheader">Tags</h4>
+        <ul class="mdc-list mdc-list--dense">
+        {{ range $v2 }}
+          {{ if .Term }}
+            {{ $tagURL := printf "tags/%s" .Term | relURL }}
+            {{ if ( gt .Count 1 )}}
+            <li class="mdc-list-item">
+                <a href="/tags/{{ .Term | urlize }}" class="mdc-theme--secondary-dark"><span class="mdl-checkbox__label">{{.Term}}</span></a>
+                <span class="mdc-list-item__meta">{{.Count}}</span>
+            </li>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        </ul>
+
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button">See More</button>
+          </div>
+
+        </div>
+    </div>
+
+    </div>
+
+
+    <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 ">
+
+    <div class="mdc-card mdc-list-group px-card">
+      {{ $tags := $.Site.Taxonomies.tags.ByCount }}
+      
+      {{ $v2 := where $tags "Term" "not in" (slice "tags" "rss") }}
+      
+        <h4 class="mdc-list-group__subheader">Tags</h4>
+        <ul class="mdc-list mdc-list--dense">
+        {{ range $v2 }}
+          {{ if .Term }}
+            {{ $tagURL := printf "tags/%s" .Term | relURL }}
+            {{ if ( gt .Count 1 )}}
+            <li class="mdc-list-item">
+                <a href="/tags/{{ .Term | urlize }}" class="mdc-theme--secondary-dark"><span class="mdl-checkbox__label">{{.Term}}</span></a>
+                <span class="mdc-list-item__meta">{{.Count}}</span>
+            </li>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        </ul>
+
+        <div class="mdc-card__actions">
+          <div class="mdc-card__action-buttons">
+            <button class="mdc-button mdc-card__action mdc-card__action--button">See More</button>
+          </div>
+
+        </div>
+    </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+</div>
