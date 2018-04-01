@@ -49,9 +49,11 @@
   <div class="px-padding">
     {{ .Summary }}
   </div>
+  <hr class="mdc-list-divider">
+  
   <div class="mdc-card__actions">
     <div class="mdc-card__action-buttons">
-      <button class="mdc-button mdc-card__action mdc-card__action--button">Read More</button>
+      <a href="{{.RelPermalink}}" class="mdc-button mdc-card__action mdc-card__action--button">Read More</a>
     </div>
 
   </div>
@@ -66,32 +68,23 @@
 
     <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-12 ">
 
-    <div class="mdc-card mdc-list-group px-card">
-      {{ $tags := $.Site.Taxonomies.tags.ByCount }}
+    <div class="mdc-card px-card px-padding">
       
-      {{ $v2 := where $tags "Term" "not in" (slice "tags" "rss") }}
+      <div class="mdc-typography--subheading2">Social</div>
       
-        <h4 class="mdc-list-group__subheader">Tags</h4>
-        <ul class="mdc-list mdc-list--dense">
-        {{ range $v2 }}
-          {{ if .Term }}
-            {{ $tagURL := printf "tags/%s" .Term | relURL }}
-            {{ if ( gt .Count 1 )}}
-            <li class="mdc-list-item">
-                <a href="/tags/{{ .Term | urlize }}" class="mdc-theme--secondary-dark"><span class="mdl-checkbox__label">{{.Term}}</span></a>
-                <span class="mdc-list-item__meta">{{.Count}}</span>
-            </li>
-            {{ end }}
+        <div class="px-social-wrapper">
+          {{ range .Site.Params.social }}
+
+            
+              <div class="px-tile-icon mdc-theme--secondary-bg" {{with .color}}style="background-color:{{.}}!important"{{end}}>
+                <a class="" href="{{.url}}"><i class="{{.icon}} fa-3x mdc-theme--text-primary-on-dark" ></i></a>
+              </div>
+            
+
           {{ end }}
-        {{ end }}
-        </ul>
-
-        <div class="mdc-card__actions">
-          <div class="mdc-card__action-buttons">
-            <button class="mdc-button mdc-card__action mdc-card__action--button">See More</button>
-          </div>
-
         </div>
+      
+      
     </div>
 
     </div>
@@ -104,7 +97,7 @@
       
       {{ $v2 := where $tags "Term" "not in" (slice "tags" "rss") }}
       
-        <h4 class="mdc-list-group__subheader">Tags</h4>
+        <h4 class="mdc-list-group__subheader mdc-typography--subheading2">Popular Tags</h4>
         <ul class="mdc-list mdc-list--dense">
         {{ range $v2 }}
           {{ if .Term }}
@@ -118,6 +111,7 @@
           {{ end }}
         {{ end }}
         </ul>
+        <hr class="mdc-list-divider">
 
         <div class="mdc-card__actions">
           <div class="mdc-card__action-buttons">

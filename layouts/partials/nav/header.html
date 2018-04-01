@@ -3,27 +3,59 @@
 <header class="mdc-toolbar mdc-toolbar--fixed mdc-toolbar--waterfall mdc-toolbar--flexible mdc-toolbar--flexible-default-behavior">
   <div class="mdc-toolbar__row px-toolbar"  >
     
-    <section class="mdc-toolbar__section mdc-toolbar__section--shrink-to-fit mdc-toolbar__section--align-start" >
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start mdc-menu-anchor" >
       <h1 class="mdc-toolbar__title" style="padding-bottom:1px;">
-        <div>
-        Title
-      </div>
+        <div style="display:flex; flex-direction:row; align-items:baseline;">
+          <a class="menu mdc-toolbar__menu-icon px-menu-icon"><i class="fas fa-ellipsis-v"></i></a>
+          <a href="{{.Site.BaseURL | relURL}}" class="mdc-theme--text-primary-on-primary px-title px-title-header">
+            {{.Site.Title | upper }}
+          </a>
+        </div>
       </h1>
     </section>
     
-    <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
-        <nav class="mdc-tab-bar">
-          {{ range .Site.Menus.main }}
-            <a class="mdc-tab {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} mdc-tab--active{{end}} mdc-theme--text-primary-on-primary" href="{{ .URL }}">
-              {{ .Name }}
-              <span class="mdc-tab__indicator"></span>
-            </a>
-          {{ end}}
-        </nav>
-  </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end px-tabs" role="toolbar">
+      <nav class="mdc-tab-bar">
+        {{ range .Site.Menus.main }}
+          <a class="mdc-tab {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} mdc-tab--active{{end}} mdc-theme--text-primary-on-primary" href="{{ .URL }}">
+            {{ .Name }}
+            <span class="mdc-tab__indicator"></span>
+          </a>
+        {{ end}}
+      </nav>
+    </section>
     
   </div>
 </header>
+
+<aside class="mdc-drawer mdc-drawer--temporary mdc-typography">
+  <nav class="mdc-drawer__drawer">
+    <header class="mdc-drawer__header">
+      <div class="mdc-drawer__header-content">
+        <div>
+        <h4 class="mdc-typography--headline">
+          {{.Site.Title | upper}}
+        </h4>
+        {{ with .Site.Params.subtitle }}<div class="mdc-typography--subheading-2">{{ . }}</div>{{ end }}
+      </div>
+      </div>
+    </header>
+
+    <div class="mdc-drawer__toolbar-spacer"></div>
+
+    <nav class="mdc-drawer__content mdc-list">
+      
+      
+      {{ range .Site.Menus.main }}
+          <a class="mdc-list-item {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} mdc-list-item--activated{{end}}" href="{{.URL}}">
+          {{ .Name }}
+        </a>
+      {{ end}}
+      
+
+    </nav>
+  </nav>
+</aside>
 
 
 

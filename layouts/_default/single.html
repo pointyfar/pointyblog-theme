@@ -1,21 +1,100 @@
 {{ define "main" }}
 
-{{ $PageTitle := .Title }}
 
-{{ with .Resources.ByType "image" }}
-  {{ range . }}
-  <img src="{{ .RelPermalink }}" alt="{{ $PageTitle | title }}" />
+
+{{ $PageTitle := .Title }}
+{{ $PageContext := . }}
+
+{{ $.Scratch.Set "imgList" (slice ) }}
+{{ $.Scratch.Set "imgNames" (slice ) }}
+
+{{ if gt ( len (.Resources.ByType "image")) 0  | or (isset .Params "image") }}
+  {{ if gt ( len (.Resources.ByType "image")) 0 }}
+    {{ range (.Resources.ByType "image")  }}
+      {{ $.Scratch.Add "imgList" .RelPermalink }}
+      {{ $.Scratch.Add "imgNames" .Title }}
+    {{ end }}
+  {{ end }}
+  {{ if isset .Params "image" }}
+    {{ if eq ( printf "%T" .Params.image ) "string" }}
+      {{ $.Scratch.Add "imgList" .Params.image }}
+      {{ $.Scratch.Add "imgNames" .Params.image }}
+    {{ else if eq ( printf "%T" .Params.image ) "[]interface {}" }}
+      {{ range .Params.image }}
+        {{ $.Scratch.Add "imgList" .src }}
+        {{ $.Scratch.Add "imgNames" .title }}
+      {{ end }}
+    {{ else if eq ( printf "%T" .Params.image ) "[]string" }}
+      {{ range .Params.image }}
+        {{ $.Scratch.Add "imgList" . }}
+        {{ $.Scratch.Add "imgNames" . }}
+      {{ end }}
+    {{ end }}
   {{ end }}
 {{ end }}
 
-{{ .Content }}
 
-{{ if .PrevInSection }}
-  <a class="btn btn-light" href="{{ .PrevInSection.Permalink }}">Previous Post</a>
-{{ end }}
-{{ if .NextInSection }}
-  <a class="btn btn-light" href="{{ .NextInSection.Permalink }}">Next Post</a>
+<div class="mdc-typography--headline px-padding">
+  {{ .Title }}
+</div>
+
+<div class="px-padding">
+  {{ if gt ( len ($.Scratch.Get "imgList")) 0 }}
+  
+  <ul id="masonry-image-list" class="mdc-image-list mdc-image-list--masonry masonry-image-list mdc-image-list--with-text-protection">
+    {{ range $index, $element := ($.Scratch.Get "imgList") }}
+    
+    <li class="mdc-image-list__item" >
+      <img class="mdc-image-list__image" src="{{ . | relURL }}" onclick="imageDialog('{{ . | relURL }}')">
+      <div class="mdc-image-list__supporting">
+        <span class="mdc-image-list__label">{{ index ($.Scratch.Get "imgNames") $index }}</span>
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+</div>
+
+<article class="px-padding">
+  {{ .Content }}
+</article>
+
+<hr class="mdc-list-divider">
+<div class="mdc-card__actions">
+
+  <div class="mdc-card__action-buttons">
+    {{ if .PrevInSection }}
+      <a href="{{ .PrevInSection.Permalink }}" class="mdc-button mdc-card__action mdc-card__action--button">Previous Post</a>
+    {{ end }}
+    {{ if .NextInSection }}
+      <a href="{{ .NextInSection.Permalink }}" class="mdc-button mdc-card__action mdc-card__action--button">Next Post</a>
+    {{ end }}
+    
+  </div>
+  <div class="mdc-card__action-icons">
+    <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Share">share</i>
+    <i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="More options">more_vert</i>
+  </div>
+</div>
+
+<aside id="px-photo-dialog"
+  class="mdc-dialog"
+  role="alertdialog"
+  aria-labelledby="my-mdc-dialog-label"
+  aria-describedby="my-mdc-dialog-description">
+  <div class="mdc-dialog__surface">
+    
+    <section id="my-mdc-dialog-description" class="mdc-dialog__body">
+      <div id="px-dialog-img-container" style="border:1px solid red; min-height: 200px; height:70vh">
+      </div>
+
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Ok</button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</aside>
+
 {{ end }}
 
-
-{{ end }}

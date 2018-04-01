@@ -2,6 +2,11 @@
 hugo.exe
 /public/
 
+## dev bundle unminified
+/static/_bundle.css
+/static/_bundle.js
+style-bundle.js
+
 ### Node ###
 # Logs
 logs

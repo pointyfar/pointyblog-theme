@@ -9,10 +9,8 @@ var gulp          = require("gulp"),
     autoprefixer  = require("gulp-autoprefixer"),
     gutil         = require('gulp-util'),
     concat        = require("gulp-concat"),
-    strreplace    = require("gulp-string-replace"),
-    del           = require("del"),
-    minimist      = require('minimist'),
-    zip           = require('gulp-zip');
+    del           = require("del")
+    ;
     
 const json = JSON.stringify;
 
@@ -33,12 +31,12 @@ gulp.task('test',(done)=>{
 
 // Run hugo server and webpack --watch simultaneously, with merged output
 gulp.task('dev', (cb) => {
-  spawn(WEBPACK_BIN, ['--watch'], { stdio: 'inherit' }, (err) => {
+  spawn(WEBPACK_BIN, ['--watch', '--config', 'webpack.dev.js'], { stdio: 'inherit' }, (err) => {
     if (err) return cb(err)
     cb()
 });
 
-  spawn('hugo', ['server'], { cwd: HUGO_ROOT, stdio: 'inherit' }, (err) => {
+  spawn('hugo', ['server', '--config', 'devconfig.toml'], { cwd: HUGO_ROOT, stdio: 'inherit' }, (err) => {
     if (err) return cb(err)
     cb()
   })
