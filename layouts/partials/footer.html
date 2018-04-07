@@ -1,15 +1,7 @@
-<!--<script>
-var bodyEl = document.getElementById('body');
-bodyEl.onscroll = function() {
-  console.log("scrolling");
-
-
-};
-</script>
--->
-
-<script src="vendor/mermaid/mermaid.min.js"></script>
+{{ if .Params.hasMermaid }}
+<script src="{{ "vendor/mermaid/mermaid.min.js" | relURL}}"></script>
 <script>mermaid.initialize({startOnLoad:true, theme:'neutral'});</script>
+{{ end }}
 
 </body>
 

@@ -76,6 +76,7 @@ a {
   width: 100%;
   align-items: center;
   justify-content: center;
+  margin-top: 300px;
 }
 
 .px-main {
@@ -138,9 +139,15 @@ a.px-menu-icon {
     display: inline-block;
   }
 }
+@media (min-width: 840px) {
+  .mdc-layout-grid__cell--span-12-desktop {
+    width: 100%;
+  }
+  
+}
 
 .px-toolbar::after {
-  background: url('/images/stock/beach.jpg'); 
+  background: url('/hero.jpg'); 
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
